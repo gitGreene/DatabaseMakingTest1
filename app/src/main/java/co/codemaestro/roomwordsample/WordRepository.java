@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import java.util.List;
 
 public class WordRepository {
-    private WordDAO mWordDao;
+    private WordDao mWordDao;
     private LiveData<List<Word>> mAllWords;
 
     WordRepository(Application application) {
@@ -26,9 +26,9 @@ public class WordRepository {
 
     private static class insertAsyncTask extends AsyncTask<Word, Void, Void> {
 
-        private WordDAO mAsyncTaskDao;
+        private WordDao mAsyncTaskDao;
 
-        insertAsyncTask(WordDAO dao) {
+        insertAsyncTask(WordDao dao) {
             mAsyncTaskDao = dao;
         }
 

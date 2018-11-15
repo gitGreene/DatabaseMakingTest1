@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 @Database(entities = {Word.class}, version = 1)
 public abstract class WordRoomDatabase extends RoomDatabase {
 
-    public abstract WordDAO wordDao();
+    public abstract WordDao wordDao();
 
     private static volatile WordRoomDatabase INSTANCE;
 
@@ -41,7 +41,8 @@ public abstract class WordRoomDatabase extends RoomDatabase {
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
-        private final WordDAO mDao;
+        private final WordDao mDao;
+        String[] words = {"dolphin", "crocodile", "cobra"};
 
         PopulateDbAsync(WordRoomDatabase db) {
             mDao = db.wordDao();
@@ -49,11 +50,12 @@ public abstract class WordRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            mDao.deleteAll();
-            Word word = new Word("Hello");
-            mDao.insert(word);
-            word = new Word("World");
-            mDao.insert(word);
+            if(mDao.getAnyWord().length < 1) {
+                for(int i = 0; i <= words.length - 1; i++) {
+                    Word word = new Word(words[i]);
+                    mDao.insert(word);
+                }
+            }
             return null;
         }
     }

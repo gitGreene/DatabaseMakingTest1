@@ -8,7 +8,7 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 @Dao
-public interface WordDAO {
+public interface WordDao {
 
     @Insert
     void insert(Word word);
@@ -18,4 +18,7 @@ public interface WordDAO {
 
     @Query("SELECT * from word_table ORDER BY word ASC")
     LiveData<List<Word>> getAllWords();
+
+    @Query("SELECT * from word_table LIMIT 1")
+    Word[] getAnyWord();
 }
